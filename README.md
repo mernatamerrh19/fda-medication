@@ -1,6 +1,8 @@
 # fda-medication
 
+
 Project Setup
+
 
 Prerequisites
 Docker installed on your machine.
@@ -8,27 +10,42 @@ Basic knowledge of Docker, cron jobs, and Python.
 Building the Docker Image
 To build the Docker image, navigate to the project directory and run the following command:
 
+
 docker build -t etl-cron-container .
 This will create the etl-cron-container image with all the dependencies needed to run the cron jobs.
 
+
 Directory Structure
 etl-cron-container/
+
 │
+
 ├── Dockerfile
+
 ├── crontab (cron job configuration file)
+
 ├── extract-json-files.py (Python script)
+
 ├── FDA.py (Python script)
+
 ├── etl_tests.py (Python script)
+
 ├── patients_fhir_100/ (data directory)
+
 └── README.md
+
+
 Dockerfile Explanation
+
 
 Base Image: The Dockerfile uses the official Python 3.9 image and installs cron and necessary dependencies.
 Copy Files: It copies the Python scripts, cron job file, and data into the container.
 Cron Setup: The crontab file is added to /etc/cron.d/ and cron jobs are configured to run at specific times.
 Log Files: Log files are created to capture the output of the cron jobs (/var/log/extract-json.log, /var/log/fda.log, /var/log/etl_tests.log, /var/log/cron.log).
 Cron Service: The cron service is started when the container runs, and logs are monitored using tail.
+
 Running the Project
+
 
 Running the Docker Container
 To run the container after building the image, execute:
@@ -49,6 +66,8 @@ Alternatively, if you need to view a specific log file, run:
 docker exec -it etl-cron-container cat /var/log/extract-json.log
 docker exec -it etl-cron-container cat /var/log/fda.log
 docker exec -it etl-cron-container cat /var/log/etl_tests.log
+
+
 Cron Jobs
 
 The following cron jobs are set up in the crontab file:
@@ -59,6 +78,8 @@ Run FDA script: Executes the FDA.py script at 2:01 AM every day.
 1 2 * * * /usr/local/bin/python3 /app/FDA.py >> /var/log/fda.log 2>&1
 Run ETL tests: Executes the etl_tests.py script at 2:02 AM every day.
 2 2 * * * /usr/local/bin/python3 /app/etl_tests.py >> /var/log/etl_tests.log 2>&1
+
+
 Logs
 
 Logs are generated for each ETL script and cron service. They are saved in the /var/log/ directory inside the container:
@@ -68,6 +89,7 @@ Logs are generated for each ETL script and cron service. They are saved in the /
 /var/log/etl_tests.log: Logs from etl_tests.py.
 /var/log/cron.log: Logs from the cron service itself.
 You can access these logs using docker exec or docker logs commands.
+
 
 Stopping the Container
 
