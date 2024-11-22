@@ -1,0 +1,9 @@
+* * * * * echo "Cron job executed" >> /var/log/cron_test.log
+# Run the first ETL script daily at 2 AM
+0 2 * * * /usr/local/bin/python3 /app/extract-json-files.py >> /var/log/extract-json.log 2>&1
+
+# Wait for 1 minute, then run the second ETL script
+1 2 * * * /usr/local/bin/python3 /app/FDA.py >> /var/log/fda.log 2>&1
+
+# Wait for 1 minute, then run the second ETL script
+1 2 * * * /usr/local/bin/python3 /app/etl_tests.py >> /var/log/etl_tests.log 2>&1

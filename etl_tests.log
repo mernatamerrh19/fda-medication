@@ -1,0 +1,4 @@
+2024-11-22 20:42:22,816 - INFO - Starting ETL tests...
+2024-11-22 20:42:22,818 - INFO - Extraction test passed
+2024-11-22 20:42:22,820 - INFO - Patients Loading test passed
+2024-11-22 20:42:22,820 - INFO - ETL tests completed.
